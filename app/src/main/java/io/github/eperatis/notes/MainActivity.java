@@ -1,6 +1,7 @@
 package io.github.eperatis.notes;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ListView listView;
     DBHelper helper;
 
+    BatteryLevelReceiver batteryLevelReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         helper = new DBHelper(this);
         listView = (ListView)findViewById(R.id.list_notes);
         listView.setOnItemClickListener(this);
+
+        IntentFilter intentFilter = new IntentFilter(android.content.Intent.ACTION_BATTERY_LOW);
+        batteryLevelReceiver = new BatteryLevelReceiver();
+        registerReceiver(batteryLevelReceiver, intentFilter);
     }
 
     @Override
@@ -87,5 +94,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onResume(){
         super.onResume();
         setListView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver( batteryLevelReceiver );
     }
 }
