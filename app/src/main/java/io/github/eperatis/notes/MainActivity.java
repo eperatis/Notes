@@ -1,5 +1,7 @@
 package io.github.eperatis.notes;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,8 +14,14 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    ListView listView;
+    DBHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +34,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainActivity.this, AddActivity.class));
             }
         });
+
+        helper = new DBHelper(this);
+        listView = (ListView)findViewById(R.id.list_notes);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -52,5 +63,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setListView(){
+        Cursor cursor = helper.allData();
+        CustomCursorAdapter customCursorAdapter = new CustomCursorAdapter(this, cursor, 1);
+        listView.setAdapter(customCursorAdapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int i, long x) {
+        TextView getId = (TextView)view.findViewById(R.id.listID);
+        final long id = Long.parseLong(getId.getText().toString());
+        Cursor cur = helper.oneData(id);
+        cur.moveToFirst();
+
+        Intent idnotes = new Intent(MainActivity.this, EditActivity.class);
+        idnotes.putExtra(DBHelper.row_id, id);
+        startActivity(idnotes);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setListView();
     }
 }
