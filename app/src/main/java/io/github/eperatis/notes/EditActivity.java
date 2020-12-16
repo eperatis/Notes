@@ -60,10 +60,10 @@ public class EditActivity extends AppCompatActivity {
                 values.put(DBHelper.row_note, detail);
 
                 if (title.equals("") && detail.equals("")) {
-                    Toast.makeText(EditActivity.this, "Nothing to save", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivity.this, "Nem törtnt változás.", Toast.LENGTH_SHORT).show();
                 } else {
                     helper.updateData(values, id);
-                    Toast.makeText(EditActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivity.this, "Mentve", Toast.LENGTH_SHORT).show();
                     finish();
                 }
         }
@@ -71,13 +71,13 @@ public class EditActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.delete_edit:
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
-                builder.setMessage("This note will be deleted.");
+                builder.setMessage("Ez a jegyzet törölve lesz.");
                 builder.setCancelable(true);
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Törlés", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         helper.deleteData(id);
-                        Toast.makeText(EditActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivity.this, "Törölve", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });

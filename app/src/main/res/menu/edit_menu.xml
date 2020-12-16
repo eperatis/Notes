@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/save_edit"
-        android:title="SAVE"
+        android:title="Mentés"
         android:orderInCategory="1"
         app:showAsAction="always"
         />
     <item
         android:id="@+id/delete_edit"
-        android:title="DELETE"
+        android:title="Törlés"
         android:orderInCategory="2"
         app:showAsAction="always"
         />

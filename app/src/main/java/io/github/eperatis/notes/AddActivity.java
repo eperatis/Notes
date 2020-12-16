@@ -54,10 +54,10 @@ public class AddActivity extends AppCompatActivity {
 
                 //Create Condition if Title and Detail is empty
                 if (title.equals("") && detail.equals("")){
-                    Toast.makeText(AddActivity.this, "Nothing to save", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddActivity.this, "Nincs mit elmenteni", Toast.LENGTH_SHORT).show();
                 }else{
                     helper.insertData(values);
-                    Toast.makeText(AddActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddActivity.this, "Elmentve", Toast.LENGTH_SHORT).show();
                     finish();
                 }
         }

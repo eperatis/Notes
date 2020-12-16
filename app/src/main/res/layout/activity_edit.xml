@@ -21,12 +21,12 @@
             android:id="@+id/txTitle_Edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title" />
+            android:hint="Cím" />
         <EditText
             android:id="@+id/txDetail_Edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Notes"
+            android:hint="Jegyzet"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"/>
     </LinearLayout>
